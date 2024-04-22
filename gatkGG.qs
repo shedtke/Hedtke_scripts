@@ -23,7 +23,7 @@ dir=
 
 list $dir/*vcf.gz > gatklist.txt
 
-gatk CombineGVCFs -O $fileBaseName\.$genome\.HC.vcf.gz -R $REF --variant gatklist.txt
+gatk CombineGVCFs -O $fileBaseName\.$genome\.HC.vcf.gz -R $REF -V gvcfs.list
 
 ## this is the command to call genotypes
 
