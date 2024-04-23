@@ -1,0 +1,39 @@
+#!/usr/bin/perl
+
+my %depth1;
+my %depth5;
+my %depth20;
+my %totalcount;
+my %cov1;
+#my $count=0;
+
+while (<>) {
+#$count++;
+        my @line=split(/\s/,$_);
+        my $depth=$line[2];
+        my $chrom=$line[0];
+        my $chromtype="NUC";
+        $depth1{$chrom}=$depth1{$chrom}+$depth;
+        $depth1{$chromtype}=$depth1{$chromtype}+$depth;
+        $cov1{$chromtype}++; $cov1{$chrom}++;
+        if ($depth >= 5) { $depth5{$chrom}++; $depth5{$chromtype}++; }
+        if ($depth >= 20) { $depth20{$chrom}++; $depth20{$chromtype}++; }
+        $totalcount{$chrom}++;
+        $totalcount{$chromtype}++;
+#print "$count\t$totalcount{nWb}\n";
+#print "\t$depth5{$chrom}\t$depth20{$chrom}\t$totalcount{$chrom}\t";
+
+}
+
+print "\n\nChromosome\tNum_bp_genome\tAverage\t%_Cov_5x\t%_Cov_20x";
+
+while (my ($k,$c) = each(%totalcount)) {
+        my $percent5=100*$depth5{$k}/$c;
+        my $percent20=100*$depth20{$k}/$c;
+        my $averagedepth=$depth1{$k}/$c;
+        my $percent1=100*$cov1{$k}/$c;
+        print "\n$k\t$c\t$averagedepth\t$percent5\t$percent20";
+}
+
+print "\n\n";
+end;
