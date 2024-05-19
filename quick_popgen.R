@@ -49,3 +49,22 @@ compoplot(mydata.xval$DAPC,col=mycol,show.lab=TRUE,posi="bottomright")
 ## Figure that shows the overall proportion of samples assigned to their collection site/host
 myass<-summary(mydata.xval$DAPC)$assign.per.pop*100
 barplot(myass,xlab="% correct assignment",horiz=TRUE,las=1,col=mycol,xlim=c(0,100))
+
+## hacks for specifying shapes or colors
+# example using shape
+# make a new vector for the shape/color that has the same length as your number of samples
+pop.shape<-vector(length=121)
+
+## use grep to search your list of samples (ssuresist) for a population name (D0) and set it to shape 24
+pop.shape[grep('D0',ssuresist)] <-24
+
+## set D80 to shape 19
+pop.shape[grep('D80',ssuresist)] <-19
+
+## example using color
+# my list for my samples was called gharesp
+ghacol<-gharesp
+## I then searched my list of samples for the word "poor" and set the color to #440154FF
+ghacol[grep('poor',gharesp)]<-"#440154FF"
+## here I looked for the word "medium" and set the color to red
+ghacol[grep('medium',gharesp)]<-"red"
